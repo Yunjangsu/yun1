@@ -11,6 +11,8 @@ pipeline {
 
     stage('Build JAR') {
       steps {
+        //권한부여
+        chmod +x ./gradlew 
         // 별도의 하위 경로 지정 없이 최상위에서 실행
         sh './gradlew clean build'
       }
