@@ -1,25 +1,18 @@
 pipeline {
-  agent any
-
-  stages {
-    stage('Clone') {
-      steps {
-        checkout scm
-        sh 'echo ✅ 코드 클론 완료'
-      }
+    agent {
+        kubernetes {
+            label 'docker'
+            defaultContainer 'jnlp'
+        }
     }
-
-    stage('Build JAR') {
-      steps {
-        sh 'chmod +x ./gradlew'
-        sh './gradlew clean build'
-      }
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                container('docker') {
+                    sh 'docker version'
+                    sh 'docker build -t yunjangsu/app:latest .'
+                }
+            }
+        }
     }
-
-    stage('Build Docker Image') {
-      steps {
-        sh 'docker build -t yunjangsu/app:latest .'
-      }
-    }
-  }
 }
