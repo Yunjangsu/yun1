@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/Yunjangsu/yun1'
+        git 'https://github.com/Yunjangsu/YYun'
       }
     }
 
