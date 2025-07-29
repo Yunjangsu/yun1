@@ -8,18 +8,18 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: docker
-    image: docker:24.0.7
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - name: docker-socket
-      mountPath: /var/run/docker.sock
+    - name: docker
+      image: docker:24.0.7
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: docker-sock
+          mountPath: /run/docker.sock
   volumes:
-  - name: docker-socket
-    hostPath:
-      path: /run/docker.sock
+    - name: docker-sock
+      hostPath:
+        path: /run/docker.sock
 """
         }
     }
