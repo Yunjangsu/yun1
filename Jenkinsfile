@@ -1,16 +1,17 @@
 pipeline {
     agent {
         kubernetes {
-            label 'docker' // PodTemplate의 라벨과 동일해야 함
-            defaultContainer 'docker'
+            label 'podman'  // GUI에서 등록한 PodTemplate 라벨과 일치해야 함
+            defaultContainer 'podman'
         }
     }
     stages {
-        stage('Build') {
+        stage('Build with Podman') {
             steps {
-                container('docker') {
-                    sh 'docker version'
-                    sh 'docker build -t yunjangsu/app:latest .'
+                container('podman') {
+                    sh 'podman --version'
+                    sh 'podman build -t yunjangsu/app:latest .'
+                    // 필요시 podman push 등 추가
                 }
             }
         }
