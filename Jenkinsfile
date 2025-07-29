@@ -29,8 +29,8 @@ spec:
                 container('docker') {
                     withCredentials([usernamePassword(
                         credentialsId: 'be831a03-83bb-4f1c-bbe1-9c2c9653342b',  // Jenkins에 등록한 자격증명 ID
-                        usernameVariable: 'yjasu1999@naver.com',
-                        passwordVariable: 'yunjang@1001'
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
                     )]) {
                         sh """
                             echo '${DOCKER_PASSWORD}' | docker login -u '${DOCKER_USERNAME}' --password-stdin
