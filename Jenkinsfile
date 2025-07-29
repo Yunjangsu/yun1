@@ -15,20 +15,43 @@ spec:
       tty: true
       volumeMounts:
         - name: docker-sock
-          mountPath: /run/docker.sock
+          mountPath: /var/run/docker.sock
   volumes:
     - name: docker-sock
       hostPath:
-        path: /var/run/docker.sock
+        path: /run/docker.sock
 """
         }
     }
     stages {
+        stage('Docker Login') {
+            steps {
+                container('docker') {
+                    withCredentials([usernamePassword(
+                        credentialsId: 'yunjangsu',  // Jenkins에 등록한 자격증명 ID
+                        usernameVariable: 'yjasu1999@naver.com',
+                        passwordVariable: 'yunjang@1001'
+                    )]) {
+                        sh """
+                            echo '${DOCKER_PASSWORD}' | docker login -u '${DOCKER_USERNAME}' --password-stdin
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 container('docker') {
-                    sh 'docker version'
                     sh 'docker build -t yunjangsu/app:latest .'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                container('docker') {
+                    sh 'docker push yunjangsu/app:latest'
                 }
             }
         }
