@@ -28,7 +28,7 @@ spec:
             steps {
                 container('docker') {
                     withCredentials([usernamePassword(
-                        credentialsId: 'yunjangsu',  // Jenkins에 등록한 자격증명 ID
+                        credentialsId: 'be831a03-83bb-4f1c-bbe1-9c2c9653342b',  // Jenkins에 등록한 자격증명 ID
                         usernameVariable: 'yjasu1999@naver.com',
                         passwordVariable: 'yunjang@1001'
                     )]) {
