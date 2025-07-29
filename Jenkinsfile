@@ -19,7 +19,7 @@ spec:
   volumes:
     - name: docker-sock
       hostPath:
-        path: /run/docker.sock
+        path: /var/run/docker.sock
 """
         }
     }
