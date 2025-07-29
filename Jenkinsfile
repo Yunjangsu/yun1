@@ -6,12 +6,18 @@ pipeline {
         }
     }
     stages {
-        stage('Build with Podman') {
+        stage('Build JAR') {
             steps {
                 container('podman') {
-                    sh 'podman --version'
-                    sh 'podman build -t yunjangsu/app:latest .'
-                    // 필요시 podman push 등 추가
+                    // podman 관련 명령어 주석 처리
+                    // sh 'podman --version'
+                    // sh 'podman build -t yunjangsu/app:latest .'
+
+                    // jar 파일 빌드 (예: Maven 사용 시)
+                    sh 'mvn clean package'
+
+                    // gradle 사용 시 아래처럼 변경
+                    // sh './gradlew clean build'
                 }
             }
         }
