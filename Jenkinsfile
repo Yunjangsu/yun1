@@ -1,17 +1,17 @@
 pipeline {
-    agent any
-    environment {
-        DOCKER_HOST = "unix:///run/podman/podman.sock"
+    agent {
+        kubernetes {
+            label 'docker' // PodTemplate의 라벨과 동일해야 함
+            defaultContainer 'docker'
+        }
     }
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t yunjangsu/app:latest .'
-            }
-        }
-        stage('Push') {
-            steps {
-                sh 'docker push yunjangsu/app:latest'
+                container('docker') {
+                    sh 'docker version'
+                    sh 'docker build -t yunjangsu/app:latest .'
+                }
             }
         }
     }
